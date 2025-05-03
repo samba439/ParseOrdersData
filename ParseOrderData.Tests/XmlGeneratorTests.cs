@@ -46,10 +46,10 @@ namespace ParseOrderData.Tests
         }
     };
 
-            var xmlGenerator = new XmlGenerator();
+            var xmlGenerator = new XmlService();
 
             // Act
-            var result = xmlGenerator.GenerateXml(headers, details);
+            var result = xmlGenerator.GenerateXmlFromRawData(headers, details);
             var resultXml = XElement.Parse(result);
             // Assert
             var expectedXml = XElement.Parse(@"
@@ -101,10 +101,10 @@ namespace ParseOrderData.Tests
                     }
                 };
 
-            var xmlGenerator = new XmlGenerator();
+            var xmlGenerator = new XmlService();
 
             // Act
-            var result = xmlGenerator.GenerateXml(headers, details);
+            var result = xmlGenerator.GenerateXmlFromRawData(headers, details);
             var resultXml = XElement.Parse(result);
             // Assert
             var expectedXml = XElement.Parse(@"<Orders>

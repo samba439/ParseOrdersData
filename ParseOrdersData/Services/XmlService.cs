@@ -6,11 +6,15 @@ using ParseOrderData.Models;
 
 namespace ParseOrderData.Services
 {
-    public class XmlGenerator
+    public class XmlService
     {
-        public string GenerateXml(List<HeaderRecord> headers, List<DetailRecord> details)
+        public string GenerateXmlFromRawData(List<HeaderRecord> headers, List<DetailRecord> details)
         {
             var xmlStringBuilder = new StringBuilder();
+            try
+            {
+
+            
             using (var xmlWriter = XmlWriter.Create(xmlStringBuilder, new XmlWriterSettings { Indent = true }))
             {
                 xmlWriter.WriteStartDocument();
@@ -45,6 +49,12 @@ namespace ParseOrderData.Services
             }
 
             return xmlStringBuilder.ToString();
+            }
+            catch
+            {
+                throw;
+
+            }
         }
     }
 }

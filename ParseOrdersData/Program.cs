@@ -11,23 +11,34 @@ namespace ParseOrderData
     {
         static void Main(string[] args)
         {
-            string inputFilePath = @"C:\Users\Kranthi\Documents\data.csv"; // Update with actual file path
+            try
+            {
+
+            
+            string inputFilePath = @"C:\Users\Kranthi\Documents\data.csv"; 
             if (!File.Exists(inputFilePath))
             {
                 Console.WriteLine("Input file not found.");
                 return;
             }
 
-            FileParser fileParser = new FileParser();
-            (List<HeaderRecord> headers, List<DetailRecord> details) headers1 = fileParser.ParseFile(inputFilePath);
+            FileParserService fileParser = new FileParserService();
+            (List<HeaderRecord> headers, List<DetailRecord> details) headers1 = fileParser.ParseCsvFile(inputFilePath);
 
-            XmlGenerator xmlGenerator = new XmlGenerator();
-            string xmlOutput = xmlGenerator.GenerateXml(headers1.headers, headers1.details);
+            XmlService xmlGenerator = new XmlService();
+            string xmlOutput = xmlGenerator.GenerateXmlFromRawData(headers1.headers, headers1.details);
 
             string outputFilePath = "C:\\Users\\Kranthi\\Documents\\outputfile.xml"; // Update with desired output file path
             File.WriteAllText(outputFilePath, xmlOutput);
 
             Console.WriteLine("XML file generated successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Something went wrong while parsing the data",ex.Message);
+
+                
+            }
         }
     }
 }

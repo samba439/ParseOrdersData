@@ -9,18 +9,18 @@ namespace ParseOrderData.Tests
 {
     public class FileParserTests
     {
-        private readonly FileParser _fileParser;
+        private readonly FileParserService _fileParser;
 
         public FileParserTests()
         {
-            _fileParser = new FileParser();
+            _fileParser = new FileParserService();
         }
 
         [Fact]
         public void Parse_ValidHeaderAndDetail_ReturnsCorrectRecords()
         {
 
-            var result = _fileParser.ParseFile("data.csv");
+            var result = _fileParser.ParseCsvFile("data.csv");
 
             Assert.Equal(3,result.headers.Count);
             Assert.Equal("PO12345", result.headers[0].PurchaseOrderNumber);
@@ -34,7 +34,7 @@ namespace ParseOrderData.Tests
         {
 
 
-            var result = _fileParser.ParseFile("data.csv");
+            var result = _fileParser.ParseCsvFile("data.csv");
 
             Assert.Equal("Melbourne AUMEL", result.headers[1].Destination);
         }
@@ -47,7 +47,7 @@ namespace ParseOrderData.Tests
                         "D,PO125,1,Chair,4"; // Duplicate line number
 
            // var result = _fileParser.ParseFile("data.csv");
-            Assert.Throws<InvalidDataException>(() => _fileParser.ParseFile("data-duplicatelinenumber.csv"));
+            Assert.Throws<InvalidDataException>(() => _fileParser.ParseCsvFile("data-duplicatelinenumber.csv"));
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace ParseOrderData.Tests
         {
             var input = "";
 
-            Assert.Throws<InvalidDataException>(() => _fileParser.ParseFile("data-empty.csv"));
+            Assert.Throws<InvalidDataException>(() => _fileParser.ParseCsvFile("data-empty.csv"));
         }
     }
 }
